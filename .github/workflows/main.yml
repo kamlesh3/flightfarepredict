@@ -11,8 +11,8 @@ jobs:
       # - uses: actions/setup-node@v3
       #   with:
       #     node-version: '16'
-      #- name: SetUp Python
-      - uses: actions/setup-python@v4
+      - name: SetUp Python
+        uses: actions/setup-python@v4
         with:
          python-version: '3.9'
       - uses: iterative/setup-cml@v1
@@ -21,4 +21,12 @@ jobs:
           # Your ML workflow goes here
           pip install -r requirements.txt
           python app.py
-   
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: Super-Linter
+      uses: github/super-linter@v3.15.5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
